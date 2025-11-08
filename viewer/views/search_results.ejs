@@ -1,0 +1,78 @@
+<!-- viewer/views/search_results.ejs -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChromaDB Viewer - 検索結果</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>ChromaDB Viewer</h1>
+    <nav>
+      <a href="/">コレクション一覧に戻る</a>
+      <a href="/collection/<%= name %>">コレクション: <%= name %> に戻る</a>
+    </nav>
+  </header>
+  
+  <main>
+    <section class="search-results">
+      <h2>検索結果: "<%= query %>"</h2>
+      <p>コレクション: <%= name %></p>
+      
+      <% if (results && results.ids && results.ids.length > 0) { %>
+        <div class="data-table">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>スコア</th>
+                <th>メタデータ</th>
+                <th>ドキュメント</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let i = 0; i < results.ids[0].length; i++) { %>
+                <tr>
+                  <td><%= results.ids[0][i] %></td>
+                  <td>
+                    <% if (results.distances && results.distances[0] && results.distances[0][i] !== undefined) { %>
+                      <%= results.distances[0][i].toFixed(4) %>
+                    <% } else { %>
+                      -
+                    <% } %>
+                  </td>
+                  <td>
+                    <% if (results.metadatas && results.metadatas[0] && results.metadatas[0][i]) { %>
+                      <pre><%= JSON.stringify(results.metadatas[0][i], null, 2) %></pre>
+                    <% } else { %>
+                      -
+                    <% } %>
+                  </td>
+                  <td>
+                    <% if (results.documents && results.documents[0] && results.documents[0][i]) { %>
+                      <details>
+                        <summary>ドキュメントを表示</summary>
+                        <pre><%= results.documents[0][i].length > 500 ? results.documents[0][i].substring(0, 500) + '...' : results.documents[0][i] %></pre>
+                      </details>
+                    <% } else { %>
+                      -
+                    <% } %>
+                  </td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      <% } else { %>
+        <p>検索結果はありませんでした。</p>
+      <% } %>
+    </section>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 ChromaDB Viewer</p>
+  </footer>
+</body>
+</html>

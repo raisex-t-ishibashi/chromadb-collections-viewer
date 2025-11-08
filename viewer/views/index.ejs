@@ -1,0 +1,39 @@
+<!-- viewer/views/index.ejs -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChromaDB Viewer</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>ChromaDB Viewer</h1>
+  </header>
+  
+  <main>
+    <section class="collections">
+      <h2>コレクション一覧</h2>
+      
+      <% if (collections && collections.length > 0) { %>
+        <ul class="collection-list">
+          <% collections.forEach(collection => { %>
+            <li>
+              <a href="/collection/<%= collection %>">
+                <%= collection %>
+              </a>
+            </li>
+          <% }); %>
+        </ul>
+      <% } else { %>
+        <p>コレクションがありません。ChromaDBにデータを追加してください。</p>
+      <% } %>
+    </section>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 ChromaDB Viewer</p>
+  </footer>
+</body>
+</html>
