@@ -27,8 +27,14 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', async (req, res) => {
   try {
     const collections = await client.listCollections();
-    const collectionNames = collections.map(collection => collection.name);
-    res.render('index', { collections: collectionNames });
+    // コレクション情報を構造化（テナント、データベース、コレクション名を含む）
+    const collectionData = collections.map(collection => ({
+      name: collection.name,
+      id: collection.id,
+      tenant: collection.tenant || 'default_tenant',
+      database: collection.database || 'default_database'
+    }));
+    res.render('index', { collections: collectionData });
   } catch (error) {
     console.error('Error fetching collections:', error);
     res.status(500).render('error', { message: 'Failed to fetch collections', error });

@@ -18,10 +18,19 @@
       
       <% if (collections && collections.length > 0) { %>
         <ul class="collection-list">
-          <% collections.forEach(collectionName => { %>
+          <% collections.forEach(collection => { %>
             <li>
-              <a href="/collection/<%= collectionName %>">
-                <%= collectionName %>
+              <a href="/collection/<%= collection.name %>">
+                <div class="collection-item">
+                  <div class="collection-hierarchy">
+                    <span class="tenant">テナント: <%= collection.tenant %></span>
+                    <span class="separator">›</span>
+                    <span class="database">データベース: <%= collection.database %></span>
+                    <span class="separator">›</span>
+                    <span class="collection-name">コレクション: <%= collection.name %></span>
+                  </div>
+                  <div class="collection-id">ID: <%= collection.id %></div>
+                </div>
               </a>
             </li>
           <% }); %>

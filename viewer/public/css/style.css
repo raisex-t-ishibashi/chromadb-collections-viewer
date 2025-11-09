@@ -93,6 +93,45 @@ ul.collection-list a:hover {
   background-color: #e5e7eb;
 }
 
+.collection-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.collection-hierarchy {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.collection-hierarchy .separator {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.collection-hierarchy .tenant {
+  color: #7c3aed;
+  font-weight: 500;
+}
+
+.collection-hierarchy .database {
+  color: #2563eb;
+  font-weight: 500;
+}
+
+.collection-hierarchy .collection-name {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.collection-id {
+  font-size: 0.875rem;
+  color: var(--secondary-color);
+  font-family: monospace;
+}
+
 .form-group {
   margin-bottom: 1rem;
   display: flex;
