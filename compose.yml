@@ -1,47 +1,25 @@
 services:
-  # chromadb:
-  #   image: ghcr.io/chroma-core/chroma:latest
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - chroma_data:/chroma/chroma
-  #   environment:
-  #     - CHROMA_DB_IMPL=duckdb+parquet
-  #     - PERSIST_DIRECTORY=/chroma/chroma
 
   litellm:
     image: ghcr.io/berriai/litellm:main-latest
+    container_name: litellm
     ports:
-      - "4000:4000"
+      - "${LITELLM_PORT:-4000}:4000"
     volumes:
       - ./litellm_config.yaml:/app/config.yaml
     command: --config /app/config.yaml --detailed_debug
     env_file:
       - .env
-    environment:
-      - AZURE_API_KEY=${AZURE_OPENAI_API_KEY}
-      - AZURE_API_BASE=${AZURE_OPENAI_ENDPOINT}
-      - AZURE_API_VERSION=${AZURE_OPENAI_API_VERSION:-2023-05-15}
 
   viewer:
     build:
       context: ./viewer
+    container_name: viewer
     ports:
-      - "3100:3000"
-    environment:
-      - CHROMA_API_ADDR=http://chromadb:8000
-      - LITELLM_PROXY_URL=http://litellm:4000
-      - LITELLM_MODEL=azure-embedding
+      - "${VIEWER_PORT:-3300}:3000"
+    env_file:
+      - .env
     volumes:
       - ./viewer:/app
     depends_on:
       - litellm
-    deploy:
-      resources:
-        limits:
-          memory: 4G
-        reservations:
-          memory: 512M
-
-volumes:
-  chroma_data:

@@ -5,10 +5,10 @@ const path = require('path');
 const { ChromaClient } = require('chromadb');
 
 const app = express();
-const PORT = process.env.PORT || 3300;
+const PORT = process.env.VIEWER_PORT || 3300;
 const CHROMA_API_ADDR = process.env.CHROMA_API_ADDR || 'http://localhost:8000';
 const LITELLM_PROXY_URL = process.env.LITELLM_PROXY_URL || 'http://localhost:4000';
-const LITELLM_MODEL = process.env.LITELLM_MODEL || 'azure-embedding';
+const LITELLM_MODEL = process.env.LITELLM_MODEL || 'azure-text-embedding-ada-002';
 
 
 // ChromaDBクライアントの設定
