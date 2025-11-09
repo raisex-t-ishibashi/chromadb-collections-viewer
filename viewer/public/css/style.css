@@ -95,17 +95,20 @@ ul.collection-list a:hover {
 
 .form-group {
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 label {
-  display: block;
-  margin-bottom: 0.5rem;
   font-weight: 500;
+  white-space: nowrap;
+  min-width: fit-content;
 }
 
 input[type="text"],
 input[type="number"] {
-  width: 100%;
+  width: 50%;
   padding: 0.5rem;
   border: 1px solid var(--border-color);
   border-radius: 0.25rem;
