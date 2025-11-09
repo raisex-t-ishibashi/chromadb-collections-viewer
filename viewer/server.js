@@ -74,7 +74,7 @@ app.get('/collection/:name', async (req, res) => {
   }
 });
 
-// 検索エンドポイント
+// コレクション検索
 app.post('/collection/:name/search', async (req, res) => {
   try {
     const collectionName = req.params.name;
@@ -94,7 +94,7 @@ app.post('/collection/:name/search', async (req, res) => {
       queryEmbeddings: embeddings,
       nResults: numResults
     });
-
+    console.log('Search results:', results);
     return res.render('search_results', {
       name: collectionName,
       query,
