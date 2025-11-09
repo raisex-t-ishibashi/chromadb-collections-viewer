@@ -5,15 +5,20 @@ const path = require('path');
 const { ChromaClient } = require('chromadb');
 
 const app = express();
-const PORT = process.env.VIEWER_PORT || 3300;
-const CHROMA_API_ADDR = process.env.CHROMA_API_ADDR || 'http://localhost:8000';
+
+// 環境変数の設定
+const VIEWER_PORT = process.env.VIEWER_PORT || 3300;
+const CHROMADB_HOST = process.env.CHROMADB_HOST || 'localhost';
+const CHROMADB_PORT = process.env.CHROMADB_PORT || 8000;
+const CHROMADB_API_BASE = `${CHROMADB_HOST}:${CHROMADB_PORT}`;
 const LITELLM_PROXY_URL = process.env.LITELLM_PROXY_URL || 'http://localhost:4000';
 const LITELLM_MODEL = process.env.LITELLM_MODEL || 'azure-text-embedding-ada-002';
 
 
 // ChromaDBクライアントの設定
 const client = new ChromaClient({
-  path: CHROMA_API_ADDR
+  host: CHROMADB_HOST,
+  port: CHROMADB_PORT
 });
 
 // テンプレートエンジンの設定
@@ -94,7 +99,7 @@ app.post('/collection/:name/search', async (req, res) => {
       queryEmbeddings: embeddings,
       nResults: numResults
     });
-    console.log('Search results:', results);
+
     return res.render('search_results', {
       name: collectionName,
       query,
@@ -107,7 +112,7 @@ app.post('/collection/:name/search', async (req, res) => {
 });
 
 // サーバーの起動
-app.listen(PORT, () => {
-  console.log(`ChromaDB Viewer is running on http://localhost:${PORT}`);
-  console.log(`Connected to ChromaDB at ${CHROMA_API_ADDR}`);
+app.listen(VIEWER_PORT, () => {
+  console.log(`ChromaDB Collections Viewer is running on http://localhost:${VIEWER_PORT}`);
+  console.log(`Connected to ChromaDB at ${CHROMADB_API_BASE}`);
 });
