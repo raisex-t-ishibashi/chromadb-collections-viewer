@@ -4,7 +4,7 @@ services:
     image: ghcr.io/berriai/litellm:main-latest
     container_name: litellm
     ports:
-      - "${LITELLM_PORT:-4000}:4000"
+      - "${LITELLM_PORT:-4000}:${LITELLM_PORT:-4000}"
     volumes:
       - ./litellm_config.yaml:/app/config.yaml
     command: --config /app/config.yaml --detailed_debug
@@ -13,13 +13,13 @@ services:
 
   viewer:
     build:
-      context: ./viewer
+      context: .
+      dockerfile: Dockerfile
+    image: chromadb-collections-viewer:latest
     container_name: viewer
     ports:
-      - "${VIEWER_PORT:-3300}:3000"
+      - "${VIEWER_PORT:-3300}:${VIEWER_PORT:-3300}"
     env_file:
       - .env
-    volumes:
-      - ./viewer:/app
     depends_on:
       - litellm
