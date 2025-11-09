@@ -54,7 +54,10 @@
                   <td><%= data.ids[i] %></td>
                   <td>
                     <% if (data.metadatas && data.metadatas[i]) { %>
-                      <pre><%= JSON.stringify(data.metadatas[i], null, 2) %></pre>
+                      <details>
+                        <summary>メタデータを表示</summary>
+                        <pre class="metadatas"><%= JSON.stringify(data.metadatas[i], null, 2) %></pre>
+                      </details>
                     <% } else { %>
                       -
                     <% } %>
@@ -62,8 +65,8 @@
                   <td>
                     <% if (data.embeddings && data.embeddings[i]) { %>
                       <details>
-                        <summary>埋め込みベクトルを表示 (<%= data.embeddings[i].length %> 次元)</summary>
-                        <pre class="vector"><%= JSON.stringify(data.embeddings[i].slice(0, 10)).replace(/]$/, ", ...") %></pre>
+                        <summary>ベクトルを表示 (<%= data.embeddings[i].length %> 次元)</summary>
+                        <pre class="vector"><%= JSON.stringify(data.embeddings[i]) %></pre>
                       </details>
                     <% } else { %>
                       -
@@ -71,9 +74,9 @@
                   </td>
                   <td>
                     <% if (data.documents && data.documents[i]) { %>
-                      <details>
+                      <details open>
                         <summary>ドキュメントを表示</summary>
-                        <pre><%= data.documents[i].length > 500 ? data.documents[i].substring(0, 500) + '...' : data.documents[i] %></pre>
+                        <pre class="documents"><%= data.documents[i] %></pre>
                       </details>
                     <% } else { %>
                       -

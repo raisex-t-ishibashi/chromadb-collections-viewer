@@ -177,9 +177,24 @@ pre {
   max-height: 200px;
 }
 
-pre.vector {
-  max-height: 100px;
+pre.metadatas {
+  max-height: 300px;
 }
+
+pre.vector {
+  max-height: 300px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+pre.documents {
+  max-height: 300px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 
 details {
   margin: 0.5rem 0;
