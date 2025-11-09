@@ -18,10 +18,10 @@
       
       <% if (collections && collections.length > 0) { %>
         <ul class="collection-list">
-          <% collections.forEach(collection => { %>
+          <% collections.forEach(collectionName => { %>
             <li>
-              <a href="/collection/<%= collection %>">
-                <%= collection %>
+              <a href="/collection/<%= collectionName %>">
+                <%= collectionName %>
               </a>
             </li>
           <% }); %>

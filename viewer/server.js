@@ -2,11 +2,14 @@
 const express = require('express');
 const axios = require('axios');
 const path = require('path');
-const { ChromaClient, DefaultEmbeddingFunction } = require('chromadb');
+const { ChromaClient } = require('chromadb');
 
 const app = express();
 const PORT = process.env.PORT || 3300;
 const CHROMA_API_ADDR = process.env.CHROMA_API_ADDR || 'http://localhost:8000';
+const LITELLM_PROXY_URL = process.env.LITELLM_PROXY_URL || 'http://localhost:4000';
+const LITELLM_MODEL = process.env.LITELLM_MODEL || 'azure-embedding';
+
 
 // ChromaDBクライアントの設定
 const client = new ChromaClient({
@@ -24,7 +27,10 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', async (req, res) => {
   try {
     const collections = await client.listCollections();
-    res.render('index', { collections });
+    console.log('=====Fetched collections: =====');
+    console.log(collections);
+    const collectionNames = collections.map(collection => collection.name);
+    res.render('index', { collections: collectionNames });
   } catch (error) {
     console.error('Error fetching collections:', error);
     res.status(500).render('error', { message: 'Failed to fetch collections', error });
@@ -72,21 +78,18 @@ app.post('/collection/:name/search', async (req, res) => {
     const numResults = parseInt(k) || 10;
     
     const collection = await client.getCollection({ name: collectionName });
-    console.log(collection)
 
-    const defaultEF = new DefaultEmbeddingFunction()
-    const val = await defaultEF.generate([query])
-    console.log(val)
-// /api/v2/tenants/{tenant}/databases/{database_name}/collections/{collection_id}/query
-    const response = await axios.post(`${CHROMA_API_ADDR}/api/v2/collections/${collectionName}/query`, {
-      queryEmbeddings: val,
-      n_results: numResults
+    // LiteLLM Proxyを使ってembedding生成
+    const response = await axios.post(`${LITELLM_PROXY_URL}/embeddings`, {
+      model: LITELLM_MODEL,
+      input: [query]
     });
-    // const result = await collection.query({
-    //   queryEmbeddings: val,
-    //   nResults: numResults
-    // });
-    const results = response.data;
+
+    const embeddings = [response.data.data[0].embedding];
+    const results = await collection.query({
+      queryEmbeddings: embeddings,
+      nResults: numResults
+    });
 
     return res.render('search_results', {
       name: collectionName,
