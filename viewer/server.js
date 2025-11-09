@@ -27,8 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', async (req, res) => {
   try {
     const collections = await client.listCollections();
-    console.log('=====Fetched collections: =====');
-    console.log(collections);
     const collectionNames = collections.map(collection => collection.name);
     res.render('index', { collections: collectionNames });
   } catch (error) {
@@ -71,7 +69,6 @@ app.get('/collection/:name', async (req, res) => {
 
 // 検索エンドポイント
 app.post('/collection/:name/search', async (req, res) => {
-  console.log('queryするよ')
   try {
     const collectionName = req.params.name;
     const { query, k } = req.body;
