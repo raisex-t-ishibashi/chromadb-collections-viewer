@@ -244,7 +244,7 @@ docker compose logs litellm
 
 ## ライセンス
 
-このプロジェクトはOSSとして公開予定です。
+このプロジェクトは[MIT License](LICENSE)の下で公開されています。
 
 ## 技術スタック
 
