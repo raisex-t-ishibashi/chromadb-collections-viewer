@@ -18,8 +18,7 @@
   
   <main>
     <section class="search-results">
-      <h2>検索結果: "<%= query %>"</h2>
-      <p>コレクション: <%= name %></p>
+      <h2>検索クエリ: "<%= query %>"</h2>
       
       <% if (results && results.ids && results.ids.length > 0) { %>
         <div class="data-table">
@@ -45,16 +44,19 @@
                   </td>
                   <td>
                     <% if (results.metadatas && results.metadatas[0] && results.metadatas[0][i]) { %>
-                      <pre><%= JSON.stringify(results.metadatas[0][i], null, 2) %></pre>
+                      <details>
+                        <summary>メタデータを表示</summary>
+                        <pre class="metadatas"><%= JSON.stringify(results.metadatas[0][i], null, 2) %></pre>
+                      </details>
                     <% } else { %>
                       -
                     <% } %>
                   </td>
                   <td>
                     <% if (results.documents && results.documents[0] && results.documents[0][i]) { %>
-                      <details>
+                      <details open>
                         <summary>ドキュメントを表示</summary>
-                        <pre><%= results.documents[0][i].length > 500 ? results.documents[0][i].substring(0, 500) + '...' : results.documents[0][i] %></pre>
+                        <pre class="documents"><%= results.documents[0][i] %></pre>
                       </details>
                     <% } else { %>
                       -
