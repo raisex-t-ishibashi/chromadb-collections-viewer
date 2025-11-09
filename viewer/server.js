@@ -50,7 +50,8 @@ app.get('/collection/:name', async (req, res) => {
     // データの取得（ページネーション付き）
     const result = await collection.get({
       limit: limit,
-      offset: skip
+      offset: skip,
+      include: ['embeddings', 'metadatas', 'documents']
     });
     
     res.render('collection', {
