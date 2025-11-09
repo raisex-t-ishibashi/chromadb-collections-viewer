@@ -275,14 +275,6 @@ summary {
   border-color: var(--primary-color);
 }
 
-footer {
-  text-align: center;
-  padding: 1.5rem;
-  margin-top: 2rem;
-  color: var(--secondary-color);
-  border-top: 1px solid var(--border-color);
-}
-
 @media (max-width: 768px) {
   table {
     display: block;
