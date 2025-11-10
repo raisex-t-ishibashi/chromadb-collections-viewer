@@ -1,0 +1,21 @@
+{
+  "name": "chromadb-viewer-nextjs",
+  "version": "2.0.0",
+  "description": "ChromaDB Collections Viewer built with Next.js",
+  "scripts": {
+    "dev": "next dev -p 3300",
+    "build": "next build",
+    "start": "next start -p 3300",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^15.0.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "chromadb": "^3.1.1",
+    "@chroma-core/default-embed": "^0.1.8"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

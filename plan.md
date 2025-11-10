@@ -24,9 +24,9 @@ ChromaDB Collections ViewerをExpressからNext.js (App Router) に移行し、�
 ### フェーズ0: 既存コードの保護
 
 #### 0.1 既存viewerディレクトリのリネーム
-- [ ] `viewer/`を`old_viewer/`にリネーム
-- [ ] Gitでコミット（保護のため）
-- [ ] `.gitignore`に`old_viewer/`を追加（オプション、移行完了まで追跡する場合は不要）
+- [x] `viewer/`を`old_viewer/`にリネーム
+- [x] Gitでコミット（保護のため）
+- [x] `.gitignore`に`old_viewer/`を追加（オプション、移行完了まで追跡する場合は不要）
 
 **コマンド例:**
 ```bash
@@ -40,9 +40,9 @@ git commit -m "Rename viewer to old_viewer for Next.js migration"
 ### フェーズ1: Next.jsプロジェクトのセットアップ
 
 #### 1.1 新しいviewerディレクトリの作成とNext.jsのセットアップ
-- [ ] `viewer/`ディレクトリを作成
-- [ ] Next.js 15+をインストール（App Routerサポート）
-- [ ] プロジェクト構造を作成:
+- [x] `viewer/`ディレクトリを作成
+- [x] Next.js 15+をインストール（App Routerサポート）
+- [x] プロジェクト構造を作成:
   ```
   viewer/
   ├── app/                    # Next.js App Router
@@ -63,13 +63,13 @@ git commit -m "Rename viewer to old_viewer for Next.js migration"
   ```
 
 #### 1.2 package.jsonの作成
-- [ ] 必要な依存関係をインストール:
+- [x] 必要な依存関係をインストール:
   - `next` (v15+)
   - `react` (v18+)
   - `react-dom` (v18+)
   - `chromadb` (v3.1.1)
   - `@chroma-core/default-embed` (v0.1.8)
-- [ ] scriptsを設定:
+- [x] scriptsを設定:
   - `dev`: `next dev -p 3300`（開発サーバー、ポート3300）
   - `build`: `next build`
   - `start`: `next start -p 3300`（本番サーバー）
@@ -101,8 +101,8 @@ git commit -m "Rename viewer to old_viewer for Next.js migration"
 ```
 
 #### 1.3 環境変数の設定
-- [ ] `viewer/.env.local`を作成
-- [ ] 既存の`old_viewer`から環境変数を移行:
+- [x] `viewer/.env.local`を作成
+- [x] 既存の`old_viewer`から環境変数を移行:
   - `CHROMADB_HOST`
   - `CHROMADB_PORT`
   - `LITELLM_PROXY_URL`
@@ -110,7 +110,7 @@ git commit -m "Rename viewer to old_viewer for Next.js migration"
   - `AZURE_OPENAI_API_KEY`
   - `AZURE_OPENAI_API_BASE`
   - `AZURE_OPENAI_API_VERSION`
-- [ ] ルートの`.env.example`を更新（Next.js用に）
+- [x] ルートの`.env.example`を更新（Next.js用に）
 
 **viewer/.env.local例:**
 ```env
@@ -124,8 +124,8 @@ AZURE_OPENAI_API_VERSION=2025-01-01-preview
 ```
 
 #### 1.4 .gitignoreの更新
-- [ ] `viewer/.gitignore`を作成
-- [ ] Next.js用のエントリを追加:
+- [x] `viewer/.gitignore`を作成
+- [x] Next.js用のエントリを追加:
   ```
   # next.js
   .next/
