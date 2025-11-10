@@ -20,13 +20,10 @@ services:
     ports:
       - "3300:3300"
     environment:
-      - CHROMADB_HOST=${CHROMADB_HOST:-host.docker.internal}
-      - CHROMADB_PORT=${CHROMADB_PORT:-8000}
-      - LITELLM_PROXY_URL=http://litellm:4000
-      - LITELLM_MODEL=${LITELLM_MODEL:-azure-text-embedding-ada-002}
-      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
-      - AZURE_OPENAI_API_BASE=${AZURE_OPENAI_API_BASE}
-      - AZURE_OPENAI_API_VERSION=${AZURE_OPENAI_API_VERSION}
+      - CHROMADB_HOST=${CHROMADB_HOST}
+      - CHROMADB_PORT=${CHROMADB_PORT}
+      - LITELLM_PROXY_URL=${LITELLM_PROXY_URL}
+      - LITELLM_MODEL=${LITELLM_MODEL}
     depends_on:
       - litellm
     restart: unless-stopped
