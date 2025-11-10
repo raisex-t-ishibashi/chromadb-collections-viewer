@@ -281,9 +281,9 @@ export async function generateEmbedding(query) {
 #### 3.1 グローバルCSSの移行
 **ファイル:** `viewer/app/globals.css`
 
-- [ ] `old_viewer/public/css/style.css`の内容を`viewer/app/globals.css`にコピー
-- [ ] CSS変数とスタイルを完全に保持
-- [ ] レスポンシブデザインを維持
+- [x] `old_viewer/public/css/style.css`の内容を`viewer/app/globals.css`にコピー
+- [x] CSS変数とスタイルを完全に保持
+- [x] レスポンシブデザインを維持
 
 **実装:**
 ```bash
@@ -294,11 +294,11 @@ cp old_viewer/public/css/style.css viewer/app/globals.css
 #### 3.2 ルートレイアウトコンポーネント
 **ファイル:** `viewer/app/layout.js`
 
-- [ ] HTMLの基本構造を実装
-- [ ] `<head>`メタデータの設定
-- [ ] グローバルCSSの読み込み
-- [ ] ヘッダーを組み込み
-- [ ] `old_viewer/views/*.ejs`のヘッダー部分を参照
+- [x] HTMLの基本構造を実装
+- [x] `<head>`メタデータの設定
+- [x] グローバルCSSの読み込み
+- [x] ヘッダーを組み込み
+- [x] `old_viewer/views/*.ejs`のヘッダー部分を参照
 
 **実装例:**
 ```javascript
@@ -329,8 +329,8 @@ export default function RootLayout({ children }) {
 ##### 3.3.1 Navigationコンポーネント
 **ファイル:** `viewer/components/Navigation.js`
 
-- [ ] ナビゲーションリンクを実装
-- [ ] Server Componentとして実装
+- [x] ナビゲーションリンクを実装
+- [x] Server Componentとして実装
 
 **実装例:**
 ```javascript
@@ -353,11 +353,11 @@ export default function Navigation({ links }) {
 ##### 3.3.2 Paginationコンポーネント
 **ファイル:** `viewer/components/Pagination.js`
 
-- [ ] ページネーションUIを実装
-- [ ] 前へ/次へボタン
-- [ ] ページ番号リスト
-- [ ] Server Componentとして実装（Linkコンポーネント使用）
-- [ ] `old_viewer/views/collection.ejs`のページネーション部分を参照
+- [x] ページネーションUIを実装
+- [x] 前へ/次へボタン
+- [x] ページ番号リスト
+- [x] Server Componentとして実装（Linkコンポーネント使用）
+- [x] `old_viewer/views/collection.ejs`のページネーション部分を参照
 
 **実装例:**
 ```javascript
@@ -400,10 +400,10 @@ export default function Pagination({ collectionName, currentPage, totalPages, li
 ##### 3.3.3 CollapsibleDetailsコンポーネント
 **ファイル:** `viewer/components/CollapsibleDetails.js`
 
-- [ ] `<details>`要素のラッパー
-- [ ] メタデータ、ベクトル、ドキュメント表示用
-- [ ] Server Componentとして実装（HTML標準の`<details>`を使用）
-- [ ] `old_viewer/views/collection.ejs`のdetails部分を参照
+- [x] `<details>`要素のラッパー
+- [x] メタデータ、ベクトル、ドキュメント表示用
+- [x] Server Componentとして実装（HTML標準の`<details>`を使用）
+- [x] `old_viewer/views/collection.ejs`のdetails部分を参照
 
 **実装例:**
 ```javascript
