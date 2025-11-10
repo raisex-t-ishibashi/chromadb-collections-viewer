@@ -1,10 +1,12 @@
 // viewer/app/collection/[name]/page.js
-import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import Pagination from '@/components/Pagination';
 import SearchForm from '@/components/SearchForm';
 import CollapsibleDetails from '@/components/CollapsibleDetails';
 import { getCollectionRecords, getCollectionCount } from '@/lib/chromadb-client';
+
+// 動的レンダリングを強制（ビルド時にChromaDBに接続しない）
+export const dynamic = 'force-dynamic';
 
 export default async function CollectionPage({ params, searchParams }) {
   const { name } = params;

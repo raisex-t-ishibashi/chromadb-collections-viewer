@@ -2,6 +2,9 @@
 import Link from 'next/link';
 import { getCollections } from '@/lib/chromadb-client';
 
+// 動的レンダリングを強制（ビルド時にChromaDBに接続しない）
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
   let collections = [];
   let error = null;

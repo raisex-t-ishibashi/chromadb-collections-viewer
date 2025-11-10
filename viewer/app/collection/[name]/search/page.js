@@ -1,9 +1,11 @@
 // viewer/app/collection/[name]/search/page.js
-import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import CollapsibleDetails from '@/components/CollapsibleDetails';
 import { searchCollection } from '@/lib/chromadb-client';
 import { generateEmbedding } from '@/lib/embedding-service';
+
+// 動的レンダリングを強制（ビルド時にChromaDBに接続しない）
+export const dynamic = 'force-dynamic';
 
 export default async function SearchResultsPage({ params, searchParams }) {
   const { name } = params;
