@@ -21,9 +21,9 @@ export default async function HomePage() {
     return (
       <>
         <Header />
-        <main>
-          <section>
-            <h2>エラーが発生しました</h2>
+        <main className="max-w-[90%] mx-auto my-8 px-4">
+          <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <h2 className="text-blue-500 mb-4 border-b border-gray-200 pb-2 text-xl font-semibold">エラーが発生しました</h2>
             <p>Failed to fetch collections: {error}</p>
           </section>
         </main>
@@ -34,24 +34,24 @@ export default async function HomePage() {
   return (
     <>
       <Header />
-      <main>
-        <section className="collections">
-          <h2>コレクション一覧</h2>
+      <main className="max-w-[90%] mx-auto my-8 px-4">
+        <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <h2 className="text-blue-500 mb-4 border-b border-gray-200 pb-2 text-xl font-semibold">コレクション一覧</h2>
 
           {collections.length > 0 ? (
-            <ul className="collection-list">
+            <ul className="list-none">
               {collections.map(collection => (
-                <li key={collection.id}>
-                  <Link href={`/collection/${collection.name}`}>
-                    <div className="collection-item">
-                      <div className="collection-hierarchy">
-                        <span className="tenant">テナント: {collection.tenant}</span>
-                        <span className="separator">›</span>
-                        <span className="database">データベース: {collection.database}</span>
-                        <span className="separator">›</span>
-                        <span className="collection-name">コレクション: {collection.name}</span>
+                <li key={collection.id} className="mb-2">
+                  <Link href={`/collection/${collection.name}`} className="block p-3 bg-gray-100 rounded hover:bg-gray-200 text-gray-800 no-underline transition-colors">
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-purple-600 font-medium">テナント: {collection.tenant}</span>
+                        <span className="text-gray-500 font-bold">›</span>
+                        <span className="text-blue-600 font-medium">データベース: {collection.database}</span>
+                        <span className="text-gray-500 font-bold">›</span>
+                        <span className="text-blue-500 font-semibold">コレクション: {collection.name}</span>
                       </div>
-                      <div className="collection-id">ID: {collection.id}</div>
+                      <div className="text-sm text-gray-500 font-mono">ID: {collection.id}</div>
                     </div>
                   </Link>
                 </li>
