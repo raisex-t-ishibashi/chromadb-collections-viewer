@@ -18,8 +18,12 @@ services:
     image: chromadb-collections-viewer:latest
     container_name: viewer
     ports:
-      - "${VIEWER_PORT:-3300}:${VIEWER_PORT:-3300}"
-    env_file:
-      - .env
+      - "3300:3300"
+    environment:
+      - CHROMADB_HOST=${CHROMADB_HOST}
+      - CHROMADB_PORT=${CHROMADB_PORT}
+      - LITELLM_PROXY_URL=${LITELLM_PROXY_URL}
+      - LITELLM_MODEL=${LITELLM_MODEL}
     depends_on:
       - litellm
+    restart: unless-stopped

@@ -1,20 +1,27 @@
 {
-  "name": "chromadb-viewer",
-  "version": "1.0.0",
-  "description": "Simple viewer for ChromaDB",
-  "main": "server.js",
+  "name": "chromadb-viewer-nextjs",
+  "version": "2.0.0",
+  "description": "ChromaDB Collections Viewer built with Next.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "next dev -p 3300",
+    "build": "next build",
+    "start": "next start -p 3300",
+    "lint": "next lint"
   },
   "dependencies": {
     "@chroma-core/default-embed": "^0.1.8",
-    "axios": "^1.13.2",
     "chromadb": "^3.1.1",
-    "ejs": "^3.1.10",
-    "express": "^5.1.0"
+    "next": "^15.0.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@tailwindcss/postcss": "^4.1.17",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17"
   }
 }
