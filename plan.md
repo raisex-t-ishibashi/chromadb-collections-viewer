@@ -801,8 +801,8 @@ export default async function SearchResultsPage({ params, searchParams }) {
 #### 5.1 next.config.jsの作成
 **ファイル:** `viewer/next.config.js`
 
-- [ ] Standaloneモードを有効化（Docker最適化）
-- [ ] 必要な設定を追加
+- [x] Standaloneモードを有効化（Docker最適化）
+- [x] 必要な設定を追加
 
 **実装例:**
 ```javascript
