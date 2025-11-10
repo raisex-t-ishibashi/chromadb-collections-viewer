@@ -1,37 +1,51 @@
-# Build stage
-FROM node:24-alpine AS builder
-
+# Dockerfile
+# Dependencies stage
+FROM node:24-alpine AS deps
 WORKDIR /app
 
-# 必要なシステムライブラリをインストール
 RUN apk add --no-cache libc6-compat
 
-# 依存関係のインストール
+# Next.jsプロジェクトの依存関係をインストール
 COPY viewer/package.json viewer/package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
-# Production stage
-FROM node:24-alpine
-
+# Builder stage
+FROM node:24-alpine AS builder
 WORKDIR /app
 
-# 必要なシステムライブラリをインストール
-RUN apk add --no-cache libc6-compat curl
+RUN apk add --no-cache libc6-compat
 
-# 非rootユーザーでの実行
-RUN chown -R node:node /app
-USER node
+COPY --from=deps /app/node_modules ./node_modules
+COPY viewer/ ./
 
-# ビルドステージから依存関係をコピー
-COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+# Next.jsビルド（standaloneモード）
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN npm run build
 
-# アプリケーションコードをコピー
-COPY --chown=node:node ./viewer ./
+# Runner stage
+FROM node:24-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+RUN apk add --no-cache curl
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Standaloneビルドの出力をコピー
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+
+USER nextjs
 
 EXPOSE 3300
 
-# ヘルスチェック
+ENV PORT=3300
+ENV HOSTNAME="0.0.0.0"
+
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:3300/ || exit 1
 
-CMD ["npm", "start"]
+CMD ["node", "server.js"]

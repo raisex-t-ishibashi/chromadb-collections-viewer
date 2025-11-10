@@ -824,11 +824,11 @@ module.exports = nextConfig;
 #### 6.1 Dockerfileの更新
 **ファイル:** `Dockerfile`（ルートディレクトリ）
 
-- [ ] Next.js用のマルチステージビルドに変更
-- [ ] `next build`ステップを追加
-- [ ] Standaloneモードを使用（最適化）
-- [ ] 本番環境用の設定
-- [ ] `old_viewer`は含めない
+- [x] Next.js用のマルチステージビルドに変更
+- [x] `next build`ステップを追加
+- [x] Standaloneモードを使用（最適化）
+- [x] 本番環境用の設定
+- [x] `old_viewer`は含めない
 
 **実装例:**
 ```dockerfile
@@ -888,9 +888,9 @@ CMD ["node", "server.js"]
 #### 6.2 compose.ymlの更新
 **ファイル:** `compose.yml`（ルートディレクトリ）
 
-- [ ] viewerサービスのビルドコンテキストを確認
-- [ ] ポートマッピングを3300に維持（Next.jsでポート指定）
-- [ ] 環境変数を更新
+- [x] viewerサービスのビルドコンテキストを確認
+- [x] ポートマッピングを3300に維持（Next.jsでポート指定）
+- [x] 環境変数を更新
 
 **実装例:**
 ```yaml
@@ -931,8 +931,8 @@ services:
 #### 6.3 .dockerignoreの更新
 **ファイル:** `.dockerignore`（ルートディレクトリ）
 
-- [ ] Next.js用のエントリを追加
-- [ ] `old_viewer/`を除外
+- [x] Next.js用のエントリを追加
+- [x] `old_viewer/`を除外
 
 **実装例:**
 ```

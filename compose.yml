@@ -18,8 +18,15 @@ services:
     image: chromadb-collections-viewer:latest
     container_name: viewer
     ports:
-      - "${VIEWER_PORT:-3300}:${VIEWER_PORT:-3300}"
-    env_file:
-      - .env
+      - "3300:3300"
+    environment:
+      - CHROMADB_HOST=${CHROMADB_HOST:-host.docker.internal}
+      - CHROMADB_PORT=${CHROMADB_PORT:-8000}
+      - LITELLM_PROXY_URL=http://litellm:4000
+      - LITELLM_MODEL=${LITELLM_MODEL:-azure-text-embedding-ada-002}
+      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
+      - AZURE_OPENAI_API_BASE=${AZURE_OPENAI_API_BASE}
+      - AZURE_OPENAI_API_VERSION=${AZURE_OPENAI_API_VERSION}
     depends_on:
       - litellm
+    restart: unless-stopped

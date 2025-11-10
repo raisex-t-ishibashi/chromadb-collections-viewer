@@ -2,7 +2,10 @@
 node_modules
 npm-debug.log
 yarn-error.log
-package-lock.json
+
+# Next.js
+.next
+out
 
 # Environment
 .env
@@ -47,3 +50,6 @@ LICENSE
 # Configuration examples
 .env.example
 litellm_config.yaml
+
+# Old Express viewer (excluded from Docker build)
+old_viewer
