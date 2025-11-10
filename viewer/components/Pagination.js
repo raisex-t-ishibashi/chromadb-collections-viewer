@@ -1,4 +1,3 @@
-// viewer/components/Pagination.js
 import Link from 'next/link';
 
 export default function Pagination({ collectionName, currentPage, totalPages, limit }) {

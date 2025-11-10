@@ -1,4 +1,3 @@
-// viewer/components/SearchForm.js
 'use client';
 
 import { useState } from 'react';

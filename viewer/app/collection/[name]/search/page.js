@@ -1,4 +1,3 @@
-// viewer/app/collection/[name]/search/page.js
 import Header from '@/components/Header';
 import CollapsibleDetails from '@/components/CollapsibleDetails';
 import { searchCollection } from '@/lib/chromadb-client';

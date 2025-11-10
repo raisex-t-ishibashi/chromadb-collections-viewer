@@ -1,4 +1,3 @@
-// viewer/components/CollapsibleDetails.js
 export default function CollapsibleDetails({
   summary,
   children,

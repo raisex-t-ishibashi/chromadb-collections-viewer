@@ -1,5 +1,3 @@
-// viewer/lib/embedding-service.js
-
 /**
  * LiteLLM Proxyを使って埋め込みベクトルを生成
  * @param {string} query - クエリテキスト

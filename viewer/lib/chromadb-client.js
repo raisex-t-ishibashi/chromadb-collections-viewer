@@ -1,4 +1,3 @@
-// viewer/lib/chromadb-client.js
 import { ChromaClient } from 'chromadb';
 
 const client = new ChromaClient({

@@ -1,4 +1,3 @@
-// viewer/app/page.js
 import Link from 'next/link';
 import Header from '@/components/Header';
 import { getCollections } from '@/lib/chromadb-client';

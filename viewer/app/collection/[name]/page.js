@@ -1,4 +1,3 @@
-// viewer/app/collection/[name]/page.js
 import Header from '@/components/Header';
 import Pagination from '@/components/Pagination';
 import SearchForm from '@/components/SearchForm';
