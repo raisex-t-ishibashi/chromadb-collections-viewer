@@ -152,10 +152,10 @@ AZURE_OPENAI_API_VERSION=2025-01-01-preview
 #### 2.1 ChromaDBクライアントのラッパー作成
 **ファイル:** `viewer/lib/chromadb-client.js`
 
-- [ ] ChromaDBクライアントのシングルトンインスタンスを作成
-- [ ] 環境変数からホスト/ポートを読み込み
-- [ ] エラーハンドリングを実装
-- [ ] Server Components用のAPI関数を実装:
+- [x] ChromaDBクライアントのシングルトンインスタンスを作成
+- [x] 環境変数からホスト/ポートを読み込み
+- [x] エラーハンドリングを実装
+- [x] Server Components用のAPI関数を実装:
   - `getCollections()` - コレクション一覧取得
   - `getCollection(name)` - コレクション取得
   - `getCollectionRecords(name, { page, limit })` - ページネーション付きレコード取得
@@ -229,9 +229,9 @@ export async function searchCollection(name, queryEmbeddings, nResults = 10) {
 #### 2.2 埋め込み生成サービスの実装（Fetch API使用）
 **ファイル:** `viewer/lib/embedding-service.js`
 
-- [ ] LiteLLM Proxyへのリクエスト処理（Fetch API使用）
-- [ ] エラーハンドリングとリトライロジック
-- [ ] `generateEmbedding(query)` 関数を実装
+- [x] LiteLLM Proxyへのリクエスト処理（Fetch API使用）
+- [x] エラーハンドリングとリトライロジック
+- [x] `generateEmbedding(query)` 関数を実装
 
 **実装例:**
 ```javascript
