@@ -1,5 +1,5 @@
 // viewer/app/collection/[name]/page.js
-import Navigation from '@/components/Navigation';
+import Header from '@/components/Header';
 import Pagination from '@/components/Pagination';
 import SearchForm from '@/components/SearchForm';
 import CollapsibleDetails from '@/components/CollapsibleDetails';
@@ -25,14 +25,18 @@ export default async function CollectionPage({ params, searchParams }) {
     error = e.message;
   }
 
+  const navLinks = [{ href: '/', text: 'コレクション一覧に戻る' }];
+
   if (error) {
     return (
       <>
-        <Navigation links={[{ href: '/', text: 'コレクション一覧に戻る' }]} />
-        <section>
-          <h2>エラーが発生しました</h2>
-          <p>Failed to fetch collection {name}: {error}</p>
-        </section>
+        <Header navLinks={navLinks} />
+        <main>
+          <section>
+            <h2>エラーが発生しました</h2>
+            <p>Failed to fetch collection {name}: {error}</p>
+          </section>
+        </main>
       </>
     );
   }
@@ -41,9 +45,9 @@ export default async function CollectionPage({ params, searchParams }) {
 
   return (
     <>
-      <Navigation links={[{ href: '/', text: 'コレクション一覧に戻る' }]} />
-
-      <section className="collection-details">
+      <Header navLinks={navLinks} />
+      <main>
+        <section className="collection-details">
         <h2>コレクション: {name}</h2>
         <p>総レコード数: {count}</p>
 
@@ -108,6 +112,7 @@ export default async function CollectionPage({ params, searchParams }) {
           )}
         </div>
       </section>
+      </main>
     </>
   );
 }

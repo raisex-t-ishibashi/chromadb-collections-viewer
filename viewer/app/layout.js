@@ -10,10 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ja">
       <body>
-        <header>
-          <h1>ChromaDB Collections Viewer</h1>
-        </header>
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );
