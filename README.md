@@ -9,6 +9,7 @@ ChromaDBに保存されたコレクションとレコードを簡単に閲覧・
 - **ベクトル検索**: Azure OpenAI（text-embedding-ada-002）を使用したセマンティック検索
 - **外部ChromaDB対応**: 既存のChromaDBインスタンスに接続して使用
 - **Docker対応**: Docker Composeで簡単にセットアップ
+- **Next.js App Router**: モダンなReactフレームワークで構築
 
 ## 前提条件
 
@@ -22,6 +23,7 @@ ChromaDBに保存されたコレクションとレコードを簡単に閲覧・
 - Docker & Docker Compose
 - Azure OpenAI APIキー（text-embedding-ada-002モデルへのアクセス）
 - 接続先のChromaDBインスタンス
+- （ローカル開発の場合）Node.js 18以上
 
 ## セットアップ方法
 
@@ -48,14 +50,13 @@ AZURE_OPENAI_API_KEY=your-azure-openai-api-key
 AZURE_OPENAI_API_BASE=https://your-resource.openai.azure.com/
 AZURE_OPENAI_API_VERSION=2025-01-01-preview
 
-# Viewer Configuration
-VIEWER_PORT=3300
+# ChromaDB Configuration
 CHROMADB_HOST=host.docker.internal  # ChromaDBのホスト名
 CHROMADB_PORT=8000                   # ChromaDBのポート
-LITELLM_PROXY_URL=http://litellm:4000
-LITELLM_MODEL=azure-text-embedding-ada-002
 
 # LiteLLM Configuration
+LITELLM_PROXY_URL=http://litellm:4000
+LITELLM_MODEL=azure-text-embedding-ada-002
 LITELLM_PORT=4000
 ```
 
@@ -66,13 +67,14 @@ LITELLM_PORT=4000
 | `AZURE_OPENAI_API_KEY` | Azure OpenAI APIキー | - |
 | `AZURE_OPENAI_API_BASE` | Azure OpenAIエンドポイントURL | - |
 | `AZURE_OPENAI_API_VERSION` | Azure OpenAI APIバージョン | - |
-| `VIEWER_PORT` | ビューワーのポート番号 | 3300 |
 | `CHROMADB_HOST` | ChromaDBのホスト名 | host.docker.internal |
 | `CHROMADB_PORT` | ChromaDBのポート番号 | 8000 |
 | `LITELLM_PROXY_URL` | LiteLLMプロキシのURL | http://litellm:4000 |
 | `LITELLM_MODEL` | 使用するembeddingモデル名 | azure-text-embedding-ada-002 |
 
-**注意**: `CHROMADB_HOST`は、Docker Desktop（macOS/Windows）でホストマシン上のサービスにアクセスする場合は`host.docker.internal`を使用してください。
+**注意**:
+- Docker環境: `CHROMADB_HOST=host.docker.internal`, `LITELLM_PROXY_URL=http://litellm:4000`
+- ローカル開発: `CHROMADB_HOST=localhost`, `LITELLM_PROXY_URL=http://localhost:4000`
 
 ### 3. Dockerイメージのビルドと起動
 
@@ -133,7 +135,7 @@ http://localhost:3300
 └──────┬──────┘
        │ HTTP
 ┌──────▼──────────────────────────────┐
-│  Viewer (Express + ChromaDB Client) │
+│  Viewer (Next.js + ChromaDB Client) │
 └──────┬──────────────┬────────────────┘
        │              │
        │ ChromaDB API │ Embedding API
@@ -148,9 +150,10 @@ http://localhost:3300
 
 ### コンポーネント
 
-- **Viewer**: Express.jsベースのWebアプリケーション
+- **Viewer**: Next.js (App Router) ベースのWebアプリケーション
   - ChromaDBクライアントでコレクション/レコードを取得
-  - EJSテンプレートでUIをレンダリング
+  - Server ComponentsでSSR（サーバーサイドレンダリング）
+  - Client Componentsでインタラクティブな検索フォーム
 
 - **LiteLLM Proxy**: Azure OpenAI APIへのプロキシサービス
   - テキストクエリをtext-embedding-ada-002でベクトル化
@@ -167,7 +170,17 @@ http://localhost:3300
 ```bash
 cd viewer
 npm install
-npm run dev  # nodemonで自動リロード
+npm run dev  # Next.js開発サーバー（ポート3300）
+```
+
+開発サーバー起動後、http://localhost:3300 にアクセスしてください。
+
+### 本番ビルド
+
+```bash
+cd viewer
+npm run build  # Next.jsビルド
+npm start      # 本番サーバー起動
 ```
 
 ### ログの確認
@@ -213,6 +226,7 @@ docker compose logs viewer
 - `.env`の`CHROMADB_HOST`と`CHROMADB_PORT`が正しいか確認
 - ChromaDBが起動しているか確認
 - Docker DesktopでホストマシンのChromaDBにアクセスする場合は`CHROMADB_HOST=host.docker.internal`を使用
+- ローカル開発の場合は`viewer/.env.local`で`CHROMADB_HOST=localhost`を設定
 
 ### Azure OpenAI APIエラー
 
@@ -240,7 +254,7 @@ docker compose logs litellm
 
 - このビューワーには認証機能が含まれていません
 - 信頼できるネットワーク環境でのみ使用してください
-- `.env`ファイルには機密情報が含まれるため、バージョン管理システムにコミットしないでください
+- `.env`ファイルと`viewer/.env.local`には機密情報が含まれるため、バージョン管理システムにコミットしないでください
 
 ## ライセンス
 
@@ -248,8 +262,40 @@ docker compose logs litellm
 
 ## 技術スタック
 
-- **Frontend**: EJS, CSS
-- **Backend**: Node.js 24, Express 5
+- **Frontend**: React 18, Next.js 15 (App Router)
+- **Backend**: Node.js 24, Next.js Server Components
 - **Database Client**: ChromaDB JavaScript Client v3.1.1
 - **Embedding**: Azure OpenAI (text-embedding-ada-002) via LiteLLM
 - **Container**: Docker, Docker Compose
+- **Styling**: CSS (グローバルスタイル)
+
+## プロジェクト構造
+
+```
+chroma-record-viewer/
+├── viewer/                  # Next.jsアプリケーション
+│   ├── app/                # App Router
+│   │   ├── layout.js      # ルートレイアウト
+│   │   ├── page.js        # トップページ
+│   │   ├── globals.css    # グローバルCSS
+│   │   └── collection/
+│   │       └── [name]/
+│   │           ├── page.js       # コレクション詳細
+│   │           └── search/
+│   │               └── page.js   # 検索結果
+│   ├── components/         # Reactコンポーネント
+│   │   ├── Navigation.js
+│   │   ├── Pagination.js
+│   │   ├── SearchForm.js
+│   │   └── CollapsibleDetails.js
+│   ├── lib/                # ユーティリティ
+│   │   ├── chromadb-client.js
+│   │   └── embedding-service.js
+│   ├── public/             # 静的ファイル
+│   ├── next.config.js     # Next.js設定
+│   └── package.json       # 依存関係
+├── Dockerfile             # Next.js用Dockerfile
+├── compose.yml            # Docker Compose設定
+├── litellm_config.yaml    # LiteLLM設定
+└── .env                   # 環境変数
+```
