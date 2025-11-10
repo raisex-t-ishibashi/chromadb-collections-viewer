@@ -430,12 +430,12 @@ export default function CollapsibleDetails({
 #### 4.1 トップページ（コレクション一覧）
 **ファイル:** `viewer/app/page.js`
 
-- [ ] Server Componentとして実装
-- [ ] `getCollections()`を呼び出してコレクション一覧を取得
-- [ ] 階層構造（テナント → データベース → コレクション）を表示
-- [ ] 各コレクションへのリンク
-- [ ] エラーハンドリング
-- [ ] `old_viewer/views/index.ejs`を参照してUIを完全に再現
+- [x] Server Componentとして実装
+- [x] `getCollections()`を呼び出してコレクション一覧を取得
+- [x] 階層構造（テナント → データベース → コレクション）を表示
+- [x] 各コレクションへのリンク
+- [x] エラーハンドリング
+- [x] `old_viewer/views/index.ejs`を参照してUIを完全に再現
 
 **実装例:**
 ```javascript
@@ -497,16 +497,16 @@ export default async function HomePage() {
 #### 4.2 コレクション詳細ページ
 **ファイル:** `viewer/app/collection/[name]/page.js`
 
-- [ ] Server Componentとして実装
-- [ ] URLパラメータから`name`を取得
-- [ ] クエリパラメータから`page`と`limit`を取得
-- [ ] `getCollectionRecords(name, { page, limit })`でレコード取得
-- [ ] `getCollectionCount(name)`で総数取得
-- [ ] レコードをテーブル形式で表示
-- [ ] Paginationコンポーネントを使用
-- [ ] SearchFormコンポーネントを組み込み
-- [ ] Navigationコンポーネントを使用
-- [ ] `old_viewer/views/collection.ejs`を参照してUIを完全に再現
+- [x] Server Componentとして実装
+- [x] URLパラメータから`name`を取得
+- [x] クエリパラメータから`page`と`limit`を取得
+- [x] `getCollectionRecords(name, { page, limit })`でレコード取得
+- [x] `getCollectionCount(name)`で総数取得
+- [x] レコードをテーブル形式で表示
+- [x] Paginationコンポーネントを使用
+- [x] SearchFormコンポーネントを組み込み
+- [x] Navigationコンポーネントを使用
+- [x] `old_viewer/views/collection.ejs`を参照してUIを完全に再現
 
 **実装例:**
 ```javascript
@@ -626,11 +626,11 @@ export default async function CollectionPage({ params, searchParams }) {
 #### 4.3 検索フォームコンポーネント
 **ファイル:** `viewer/components/SearchForm.js`
 
-- [ ] Client Componentとして実装
-- [ ] フォーム送信処理
-- [ ] `useRouter`でプログラマティックナビゲーション
-- [ ] 検索結果ページへリダイレクト
-- [ ] `old_viewer/views/collection.ejs`の検索フォーム部分を参照
+- [x] Client Componentとして実装
+- [x] フォーム送信処理
+- [x] `useRouter`でプログラマティックナビゲーション
+- [x] 検索結果ページへリダイレクト
+- [x] `old_viewer/views/collection.ejs`の検索フォーム部分を参照
 
 **実装例:**
 ```javascript
@@ -688,14 +688,14 @@ export default function SearchForm({ collectionName }) {
 #### 4.4 検索結果ページ
 **ファイル:** `viewer/app/collection/[name]/search/page.js`
 
-- [ ] Server Componentとして実装
-- [ ] URLパラメータから`name`を取得
-- [ ] クエリパラメータから`query`と`k`を取得
-- [ ] `generateEmbedding(query)`で埋め込みベクトル生成
-- [ ] `searchCollection(name, embeddings, nResults)`でベクトル検索
-- [ ] 結果をテーブル形式で表示（スコア付き）
-- [ ] Navigationコンポーネントを使用
-- [ ] `old_viewer/views/search_results.ejs`を参照してUIを完全に再現
+- [x] Server Componentとして実装
+- [x] URLパラメータから`name`を取得
+- [x] クエリパラメータから`query`と`k`を取得
+- [x] `generateEmbedding(query)`で埋め込みベクトル生成
+- [x] `searchCollection(name, embeddings, nResults)`でベクトル検索
+- [x] 結果をテーブル形式で表示（スコア付き）
+- [x] Navigationコンポーネントを使用
+- [x] `old_viewer/views/search_results.ejs`を参照してUIを完全に再現
 
 **実装例:**
 ```javascript
