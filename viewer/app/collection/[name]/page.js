@@ -8,9 +8,10 @@ import { getCollectionRecords, getCollectionCount } from '@/lib/chromadb-client'
 export const dynamic = 'force-dynamic';
 
 export default async function CollectionPage({ params, searchParams }) {
-  const { name } = params;
-  const page = parseInt(searchParams.page) || 1;
-  const limit = parseInt(searchParams.limit) || 10;
+  const { name } = await params;
+  const resolvedSearchParams = await searchParams;
+  const page = parseInt(resolvedSearchParams.page) || 1;
+  const limit = parseInt(resolvedSearchParams.limit) || 10;
 
   let data = null;
   let count = 0;

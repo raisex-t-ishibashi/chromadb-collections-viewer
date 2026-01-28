@@ -7,8 +7,8 @@ import { generateEmbedding } from '@/lib/embedding-service';
 export const dynamic = 'force-dynamic';
 
 export default async function SearchResultsPage({ params, searchParams }) {
-  const { name } = params;
-  const { query, k } = searchParams;
+  const { name } = await params;
+  const { query, k } = await searchParams;
   const numResults = parseInt(k) || 10;
 
   let results = null;

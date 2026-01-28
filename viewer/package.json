@@ -4,24 +4,22 @@
   "description": "ChromaDB Collections Viewer built with Next.js",
   "scripts": {
     "dev": "next dev -p 3300",
-    "build": "next build",
-    "start": "next start -p 3300",
-    "lint": "next lint"
+    "build": "next build --webpack",
+    "start": "next start -p 3300"
   },
   "dependencies": {
-    "@chroma-core/default-embed": "^0.1.8",
-    "chromadb": "^3.1.1",
-    "next": "^15.0.0",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "@chroma-core/default-embed": "^0.1.9",
+    "chromadb": "^3.2.2",
+    "next": "^16.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.9.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.17",
-    "autoprefixer": "^10.4.21",
+    "@tailwindcss/postcss": "^4.1.18",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.18"
   }
 }
